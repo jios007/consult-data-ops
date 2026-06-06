@@ -41,19 +41,19 @@ const Contact: React.FC = () => {
     if (!validate()) return;
     setStatus('loading');
     try {
-      await fetch('/api/crm/6a23fba197b34a99561dd396/subscribe', {
+      const res = await fetch('https://formspree.io/f/mkobbjbw', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: form.email,
           name: form.name,
           company: form.company,
+          email: form.email,
           message: form.message,
-          source: 'nordicitops-contact',
         }),
       });
-    } catch {
-      /* swallow — still show success */
+      if (!res.ok) throw new Error('Formspree error');
+    } catch (err) {
+      console.error('Contact form submission failed:', err);
     }
     setStatus('done');
     setForm({ name: '', company: '', email: '', message: '' });

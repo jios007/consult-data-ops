@@ -10,6 +10,76 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: 'what-is-cmms-and-how-it-helps',
+    title: 'What is a CMMS and How Does It Help Your Organisation?',
+    excerpt: 'A CMMS — Computerised Maintenance Management System — is the backbone of any professional maintenance operation. Here is what it does, why it matters, and how to get the most out of it.',
+    date: 'June 7, 2026',
+    readTime: 7,
+    tag: 'CMMS',
+    content: `
+<h2>What is a CMMS?</h2>
+<p>A Computerised Maintenance Management System (CMMS) is software that centralises all information about your physical assets, maintenance work, and resources in one place. Instead of tracking work orders in spreadsheets, scheduling PMs in email, and storing asset history in filing cabinets — a CMMS does all of this in a single, searchable system.</p>
+<p>Common CMMS platforms used by asset-heavy organisations include:</p>
+<ul>
+  <li><strong>IBM Maximo</strong> — the most widely used enterprise CMMS, common in utilities, transport, and manufacturing</li>
+  <li><strong>SAP Plant Maintenance (PM)</strong> — used by organisations already running SAP ERP</li>
+  <li><strong>Infor EAM</strong> — strong in process industries and facilities management</li>
+  <li><strong>Maintenance Connection</strong> — popular in healthcare and mid-size operations</li>
+  <li><strong>UpKeep / Limble CMMS</strong> — modern, mobile-first options for smaller teams</li>
+</ul>
+
+<h2>What does a CMMS actually do?</h2>
+<p>A well-configured CMMS manages the full maintenance lifecycle:</p>
+<ul>
+  <li><strong>Asset registry</strong> — a complete list of all equipment, with technical specs, location, hierarchy, and history</li>
+  <li><strong>Work order management</strong> — create, assign, track, and close work orders for corrective and preventive maintenance</li>
+  <li><strong>Preventive maintenance scheduling</strong> — automatic generation of PM work orders based on calendar intervals or meter readings</li>
+  <li><strong>Spare parts and inventory</strong> — track storeroom stock, reorder points, and parts used per work order</li>
+  <li><strong>Labour tracking</strong> — log actual hours per technician per work order</li>
+  <li><strong>Reporting and KPIs</strong> — PM compliance, backlog, MTBF, cost per asset, and more</li>
+</ul>
+
+<h2>How a CMMS helps your organisation</h2>
+<h3>1. Reduces unplanned downtime</h3>
+<p>By scheduling and tracking preventive maintenance, a CMMS helps you catch problems before they become failures. Organisations that move from reactive to planned maintenance typically see unplanned downtime drop by 20–40%.</p>
+
+<h3>2. Gives you reliable data for decisions</h3>
+<p>Without a CMMS, maintenance decisions are based on gut feel and experience. With one, you can answer questions like: Which assets cost the most to maintain? Which failures repeat most often? Where should we invest in condition monitoring?</p>
+
+<h3>3. Improves compliance and auditability</h3>
+<p>For regulated industries — rail, utilities, pharmaceuticals, food production — a CMMS provides the audit trail regulators require. Every work order, every inspection, every part used is recorded with timestamps and user signatures.</p>
+
+<h3>4. Controls maintenance costs</h3>
+<p>Labour, parts, and contractor costs are tracked per asset and per work order. Over time, you can see exactly where your maintenance budget goes — and where it should go instead.</p>
+
+<h3>5. Supports better planning</h3>
+<p>With visibility into upcoming PM work orders, current backlog, and resource availability, planners can schedule work efficiently instead of reacting to whatever breaks next.</p>
+
+<h2>Why CMMS implementations often underperform</h2>
+<p>A CMMS is only as good as the data inside it. The most common reasons organisations do not get full value from their system:</p>
+<ul>
+  <li><strong>Poor asset data</strong> — incomplete hierarchy, missing specs, duplicate records</li>
+  <li><strong>Inconsistent work order classification</strong> — technicians use different codes for the same type of work</li>
+  <li><strong>Low system adoption</strong> — work is done but not recorded, or recorded incorrectly</li>
+  <li><strong>No PM strategy</strong> — the system has tasks but they are not based on actual failure modes</li>
+  <li><strong>No reporting culture</strong> — the data is there but nobody looks at it</li>
+</ul>
+<p>These are not software problems — they are data and process problems. Fixing them does not require buying a new system. It requires a structured cleanup and a commitment to consistent use.</p>
+
+<h2>Getting the most from your CMMS</h2>
+<p>Whether you are implementing a CMMS for the first time or trying to get more value from an existing one, the priorities are the same:</p>
+<ol>
+  <li>Clean and complete asset data — everything starts here</li>
+  <li>Consistent work order classification — so your reports mean something</li>
+  <li>A PM programme based on real failure data — not just copied from a manual</li>
+  <li>Regular reporting reviewed by management — so the data drives decisions</li>
+  <li>Continuous improvement — CMMS data gets better over time if you act on what it tells you</li>
+</ol>
+<hr/>
+<p>If your CMMS is not delivering the value it should — whether that is IBM Maximo, SAP PM, or another platform — the problem is almost always in the data, not the software. <a href="/#contact">Get in touch</a> and let's look at what is holding your system back.</p>
+    `,
+  },
+  {
     slug: 'how-to-use-ai-in-maintenance-operations',
     title: 'How to Use AI in Maintenance & Operations — A Practical Guide',
     excerpt: 'AI is not just for tech companies. Asset-heavy organisations can use it today to predict failures, automate reporting, and get answers from their CMMS data faster than ever.',

@@ -10,7 +10,7 @@ const Blog: React.FC = () => {
         <p className="mb-4 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-nio-accent">
           <span className="h-px w-6 bg-nio-accent" /> Insights
         </p>
-        <h1 className="font-display text-3xl font-extrabold tracking-tight text-nio-heading sm:text-4xl">
+        <h1 className="text-2xl font-extrabold tracking-tight text-nio-heading sm:text-3xl">
           Maintenance data, in plain language
         </h1>
         <p className="mt-4 text-lg font-light text-nio-muted">
@@ -33,7 +33,7 @@ const Blog: React.FC = () => {
                   <Clock className="h-3.5 w-3.5" /> {post.readTime} min read
                 </span>
               </div>
-              <h2 className="mt-3 font-display text-xl font-bold leading-snug text-nio-heading group-hover:text-nio-accent transition-colors sm:text-2xl">
+              <h2 className="mt-3 text-lg font-bold leading-snug text-nio-heading group-hover:text-nio-accent transition-colors sm:text-xl">
                 {post.title}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-nio-muted sm:text-base">{post.excerpt}</p>

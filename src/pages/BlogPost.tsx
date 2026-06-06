@@ -40,7 +40,7 @@ const BlogPost: React.FC = () => {
           </span>
         </div>
 
-        <h1 className="mt-6 font-display text-2xl font-extrabold leading-tight tracking-tight text-nio-heading sm:text-3xl md:text-4xl">
+        <h1 className="mt-6 text-2xl font-extrabold leading-tight tracking-tight text-nio-heading sm:text-3xl">
           {post.title}
         </h1>
 

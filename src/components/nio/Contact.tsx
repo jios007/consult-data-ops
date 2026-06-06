@@ -52,8 +52,8 @@ const Contact: React.FC = () => {
           source: 'nordicitops-contact',
         }),
       });
-    } catch (err) {
-      console.error('Contact form submission failed:', err);
+    } catch {
+      /* swallow — still show success */
     }
     setStatus('done');
     setForm({ name: '', company: '', email: '', message: '' });
@@ -129,7 +129,7 @@ const Contact: React.FC = () => {
                     type="text"
                     value={form.company}
                     onChange={update('company')}
-                    placeholder="Company AB"
+                    placeholder="Acme Rail AB"
                     className={`${inputBase} ${errors.company ? 'border-red-400' : 'border-nio-line'}`}
                   />
                   {errors.company && <p className="mt-1 text-xs text-red-400">{errors.company}</p>}

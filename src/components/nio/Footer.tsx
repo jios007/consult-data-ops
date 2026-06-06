@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
             <h4 className="font-display text-sm font-bold text-nio-heading">Contact</h4>
             <ul className="mt-4 space-y-2 text-sm">
               <li><a href="mailto:hello@nordicitops.se" className="text-nio-muted hover:text-nio-accent">hello@nordicitops.se</a></li>
-              <li><a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-nio-muted hover:text-nio-accent">LinkedIn</a></li>
+              <li><a href="https://www.linkedin.com/company/127313950/" target="_blank" rel="noopener noreferrer" className="text-nio-muted hover:text-nio-accent">LinkedIn</a></li>
               <li className="text-nio-muted">Stockholm, Sweden</li>
             </ul>
           </div>

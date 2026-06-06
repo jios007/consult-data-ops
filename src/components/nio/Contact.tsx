@@ -82,7 +82,7 @@ const Contact: React.FC = () => {
               <Mail className="h-4 w-4 text-nio-accent" /> hello@nordicitops.se
             </a>
             <br />
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-nio-text hover:text-nio-accent">
+            <a href="https://www.linkedin.com/company/127313950/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-nio-text hover:text-nio-accent">
               <Linkedin className="h-4 w-4 text-nio-accent" /> Connect on LinkedIn
             </a>
             <br />

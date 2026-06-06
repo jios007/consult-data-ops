@@ -270,6 +270,285 @@ WHERE wo.wonum IS NULL;</code></pre>
     `,
   },
   {
+    slug: 'advanced-excel-vba-for-maintenance-teams',
+    title: 'Advanced Excel VBA: Build Custom Tools Your Team Will Actually Use',
+    excerpt: 'VBA turns Excel from a spreadsheet into a custom application. Learn how to build automated maintenance tools — work order trackers, report generators, and data validators — tailored exactly to your company.',
+    date: 'June 7, 2026',
+    readTime: 9,
+    tag: 'Excel',
+    content: `
+<h2>Why VBA is still relevant in 2026</h2>
+<p>Every year someone declares Excel dead. Every year, maintenance teams across the world keep running their operations on it. VBA — Visual Basic for Applications — is the programming language built into Excel that turns static spreadsheets into interactive tools. For companies that live in Excel, VBA is the fastest way to automate repetitive work without buying new software.</p>
+<p>This guide covers the VBA patterns that are actually useful in maintenance and operations environments — not generic tutorials, but the specific techniques you need to build tools your team will use every day.</p>
+
+<h2>Setting up the VBA editor</h2>
+<p>Press <strong>Alt + F11</strong> in Excel to open the VBA editor. If you do not see the Developer tab in the ribbon, go to <strong>File → Options → Customize Ribbon</strong> and enable it.</p>
+<p>Your code lives in <strong>Modules</strong> (for reusable functions), <strong>Sheets</strong> (for sheet-specific events), or <strong>ThisWorkbook</strong> (for workbook-level events like Open and Close).</p>
+
+<h2>Pattern 1: Auto-populate a work order tracker</h2>
+<p>This macro reads a new work order entry form and adds it to a master log sheet — the most common maintenance VBA use case.</p>
+<pre><code>Sub AddWorkOrder()
+    Dim wsForm As Worksheet
+    Dim wsLog As Worksheet
+    Dim nextRow As Long
+
+    wsForm = ThisWorkbook.Sheets("Entry Form")
+    wsLog = ThisWorkbook.Sheets("WO Log")
+
+    ' Validate required fields
+    If wsForm.Range("B2").Value = "" Then
+        MsgBox "Asset number is required.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Find next empty row in log
+    nextRow = wsLog.Cells(wsLog.Rows.Count, 1).End(xlUp).Row + 1
+
+    ' Copy values from form to log
+    wsLog.Cells(nextRow, 1).Value = nextRow - 1          ' WO Number
+    wsLog.Cells(nextRow, 2).Value = wsForm.Range("B2").Value  ' Asset
+    wsLog.Cells(nextRow, 3).Value = wsForm.Range("B3").Value  ' Description
+    wsLog.Cells(nextRow, 4).Value = wsForm.Range("B4").Value  ' Work Type
+    wsLog.Cells(nextRow, 5).Value = Now()                 ' Timestamp
+    wsLog.Cells(nextRow, 6).Value = "OPEN"               ' Status
+
+    ' Clear form for next entry
+    wsForm.Range("B2:B4").ClearContents
+
+    MsgBox "Work order added successfully.", vbInformation
+End Sub</code></pre>
+
+<h2>Pattern 2: Conditional formatting via VBA</h2>
+<p>Apply dynamic colour coding based on business rules — for example, highlight overdue work orders in red automatically when the file opens.</p>
+<pre><code>Sub HighlightOverdue()
+    Dim ws As Worksheet
+    Dim lastRow As Long
+    Dim i As Long
+
+    ws = ThisWorkbook.Sheets("WO Log")
+    lastRow = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+
+    For i = 2 To lastRow
+        Dim daysOpen As Long
+        daysOpen = DateDiff("d", ws.Cells(i, 5).Value, Now())
+
+        If ws.Cells(i, 6).Value = "OPEN" And daysOpen > 30 Then
+            ws.Rows(i).Interior.Color = RGB(255, 200, 200) ' Red
+        ElseIf ws.Cells(i, 6).Value = "OPEN" And daysOpen > 14 Then
+            ws.Rows(i).Interior.Color = RGB(255, 235, 180) ' Amber
+        Else
+            ws.Rows(i).Interior.ColorIndex = xlNone
+        End If
+    Next i
+End Sub</code></pre>
+
+<h2>Pattern 3: Generate a PDF report with one click</h2>
+<p>This is one of the most requested VBA tools — a button that produces a formatted PDF report from your data, named automatically with today's date.</p>
+<pre><code>Sub ExportMonthlyReport()
+    Dim ws As Worksheet
+    Dim fileName As String
+
+    ws = ThisWorkbook.Sheets("Monthly Report")
+    fileName = "C:\Reports\Maintenance_Report_" & Format(Now(), "YYYY-MM") & ".pdf"
+
+    ws.ExportAsFixedFormat _
+        Type:=xlTypePDF, _
+        FileName:=fileName, _
+        Quality:=xlQualityStandard, _
+        OpenAfterPublish:=True
+
+    MsgBox "Report saved to: " & fileName, vbInformation
+End Sub</code></pre>
+
+<h2>Pattern 4: Import and merge data from multiple files</h2>
+<p>Open every Excel file in a folder and copy data into a master sheet — useful for consolidating site reports.</p>
+<pre><code>Sub MergeAllFiles()
+    Dim folderPath As String
+    Dim fileName As String
+    Dim wbSource As Workbook
+    Dim wsMaster As Worksheet
+    Dim wsSource As Worksheet
+    Dim lastRow As Long
+
+    folderPath = "C:\SiteReports\"
+    wsMaster = ThisWorkbook.Sheets("Master")
+    wsMaster.Cells.ClearContents
+
+    fileName = Dir(folderPath & "*.xlsx")
+
+    Do While fileName <> ""
+        Set wbSource = Workbooks.Open(folderPath & fileName)
+        wsSource = wbSource.Sheets(1)
+
+        lastRow = wsMaster.Cells(wsMaster.Rows.Count, 1).End(xlUp).Row + 1
+        wsSource.UsedRange.Copy wsMaster.Cells(lastRow, 1)
+
+        wbSource.Close SaveChanges:=False
+        fileName = Dir()
+    Loop
+
+    MsgBox "All files merged.", vbInformation
+End Sub</code></pre>
+
+<h2>Making VBA tools company-specific</h2>
+<p>The power of VBA is customisation. To adapt these patterns to your company:</p>
+<ul>
+  <li>Replace sheet names and column references to match your actual Excel structure</li>
+  <li>Add dropdown lists (<strong>Data Validation</strong>) for work types, sites, and asset categories — then read those values in VBA</li>
+  <li>Store configuration in a hidden "Settings" sheet (file paths, email addresses, thresholds) so non-technical users can update them without touching code</li>
+  <li>Protect your VBA code with a password (<strong>Tools → VBA Project Properties → Protection</strong>) so users cannot accidentally break it</li>
+</ul>
+<p>A well-built VBA tool looks and feels like a custom application — users click buttons, fill forms, and get reports. They never need to see a line of code.</p>
+<hr/>
+<p>Need a custom Excel tool built for your maintenance team? <a href="/#contact">Get in touch</a> — I build these for organisations across the Nordics who want automation without new software.</p>
+    `,
+  },
+  {
+    slug: 'python-for-maintenance-data-merge-search-automate',
+    title: 'Python for Maintenance Teams: Merge Files, Search Data, and Automate Scripts',
+    excerpt: 'Python is the most practical tool for anyone working with maintenance data at scale. Learn how to merge Excel files, search large datasets, and build automated scripts — no programming background needed to get started.',
+    date: 'June 7, 2026',
+    readTime: 11,
+    tag: 'Python',
+    content: `
+<h2>Why Python beats manual work every time</h2>
+<p>If you spend more than 30 minutes a week copying data between files, running the same report, or searching through spreadsheets — Python can do it in seconds. And unlike VBA, Python works across any file type: Excel, CSV, PDF, databases, APIs, and more.</p>
+<p>This guide is written for maintenance professionals and data analysts who want practical results, not a computer science degree.</p>
+
+<h2>Setup: install what you need</h2>
+<pre><code>pip install pandas openpyxl glob2</code></pre>
+<p>That is all you need for everything in this article. <strong>pandas</strong> handles data, <strong>openpyxl</strong> reads and writes Excel files, and <strong>glob</strong> finds files by pattern.</p>
+
+<h2>1. Merge multiple Excel files into one</h2>
+<p>The most common request I get: "We have 12 monthly reports, one per site. Can you combine them?"</p>
+<pre><code>import pandas as pd
+import glob
+import os
+
+# Find all Excel files in a folder
+folder = r"C:\\SiteReports\\"
+all_files = glob.glob(folder + "*.xlsx")
+
+# Read and combine
+dfs = []
+for file in all_files:
+    df = pd.read_excel(file)
+    df["source_file"] = os.path.basename(file)  # Track which file each row came from
+    dfs.append(df)
+
+combined = pd.concat(dfs, ignore_index=True)
+
+# Save to a single file
+combined.to_excel(r"C:\\SiteReports\\combined.xlsx", index=False)
+print(f"Merged {len(all_files)} files — {len(combined)} rows total")</code></pre>
+<p>This handles hundreds of files in seconds. The <code>source_file</code> column tells you exactly where each row came from.</p>
+
+<h2>2. Search and filter large datasets</h2>
+<p>Searching through a 50,000-row work order export in Excel is slow and unreliable. Python does it instantly.</p>
+<pre><code>import pandas as pd
+
+# Load your work order export
+df = pd.read_excel(r"C:\\Data\\workorders.xlsx")
+
+# Search by keyword in description
+keyword = "pump"
+results = df[df["DESCRIPTION"].str.contains(keyword, case=False, na=False)]
+print(f"Found {len(results)} work orders mentioning '{keyword}'")
+
+# Filter by multiple conditions
+overdue = df[
+    (df["STATUS"].isin(["WAPPR", "INPRG", "WMATL"])) &
+    (pd.to_datetime(df["REPORTDATE"]) < pd.Timestamp.now() - pd.Timedelta(days=30))
+]
+print(f"{len(overdue)} work orders open more than 30 days")
+
+# Save filtered results
+overdue.to_excel(r"C:\\Data\\overdue_workorders.xlsx", index=False)</code></pre>
+
+<h2>3. Clean and standardise data</h2>
+<p>Real CMMS exports are messy — inconsistent capitalisation, trailing spaces, blank rows. Python cleans them in bulk.</p>
+<pre><code>import pandas as pd
+
+df = pd.read_excel(r"C:\\Data\\assets.xlsx")
+
+# Remove blank rows
+df.dropna(how="all", inplace=True)
+
+# Standardise text columns — strip spaces, uppercase
+for col in ["ASSETNUM", "SITEID", "WORKTYPE"]:
+    df[col] = df[col].astype(str).str.strip().str.upper()
+
+# Fill missing descriptions
+df["DESCRIPTION"].fillna("No description", inplace=True)
+
+# Remove duplicate asset numbers
+df.drop_duplicates(subset=["ASSETNUM"], keep="first", inplace=True)
+
+print(f"Clean dataset: {len(df)} records")
+df.to_excel(r"C:\\Data\\assets_clean.xlsx", index=False)</code></pre>
+
+<h2>4. Automated weekly report script</h2>
+<p>Schedule this to run every Monday morning — it reads your latest data export and produces a formatted summary Excel file automatically.</p>
+<pre><code>import pandas as pd
+from datetime import datetime
+
+def generate_weekly_report(input_file, output_folder):
+    df = pd.read_excel(input_file)
+    df["REPORTDATE"] = pd.to_datetime(df["REPORTDATE"])
+
+    today = pd.Timestamp.now()
+    last_week = today - pd.Timedelta(days=7)
+
+    # Summary statistics
+    summary = {
+        "Total Open WOs": len(df[df["STATUS"].isin(["WAPPR","INPRG","WMATL"])]),
+        "New WOs This Week": len(df[df["REPORTDATE"] >= last_week]),
+        "Overdue (30+ days)": len(df[
+            (df["STATUS"].isin(["WAPPR","INPRG","WMATL"])) &
+            (df["REPORTDATE"] < today - pd.Timedelta(days=30))
+        ]),
+        "PM Compliance %": round(
+            100 * len(df[(df["WORKTYPE"]=="PM") & (df["STATUS"]=="COMP")]) /
+            max(len(df[df["WORKTYPE"]=="PM"]), 1), 1
+        ),
+    }
+
+    summary_df = pd.DataFrame(list(summary.items()), columns=["Metric", "Value"])
+
+    output_file = f"{output_folder}\\Weekly_Report_{today.strftime('%Y-%m-%d')}.xlsx"
+    summary_df.to_excel(output_file, index=False)
+    print(f"Report saved: {output_file}")
+    return summary
+
+generate_weekly_report(
+    r"C:\\Data\\workorders.xlsx",
+    r"C:\\Reports"
+)</code></pre>
+
+<h2>5. Schedule scripts to run automatically</h2>
+<p>On Windows, use <strong>Task Scheduler</strong> to run your Python script automatically:</p>
+<ol>
+  <li>Open Task Scheduler → Create Basic Task</li>
+  <li>Set trigger: Daily or Weekly</li>
+  <li>Action: Start a program → browse to <code>python.exe</code></li>
+  <li>Add arguments: the full path to your script, e.g. <code>C:\\Scripts\\weekly_report.py</code></li>
+</ol>
+<p>Your report now runs automatically, with no manual intervention. The file appears in your output folder every Monday morning.</p>
+
+<h2>Making scripts company-specific</h2>
+<p>Put all configurable values at the top of your script as variables:</p>
+<pre><code># ---- CONFIGURATION ---- #
+INPUT_FILE = r"C:\\Data\\workorders.xlsx"
+OUTPUT_FOLDER = r"C:\\Reports"
+OVERDUE_THRESHOLD_DAYS = 30
+CRITICAL_SITES = ["SITE01", "SITE02", "SITE03"]
+# ----------------------- #</code></pre>
+<p>This way, a non-programmer can open the file, change the folder path or site list, and the script adapts without touching the logic.</p>
+<hr/>
+<p>Need a Python script built for your specific maintenance data workflow? <a href="/#contact">Get in touch</a> — I build and maintain automation scripts for organisations across the Nordics.</p>
+    `,
+  },
+  {
     slug: 'how-to-clean-up-maximo-work-orders',
     title: 'How to Clean Up Maximo Work Orders (Without Breaking Everything)',
     excerpt: 'Most Maximo systems accumulate thousands of orphaned, duplicated, or incorrectly classified work orders over time. Here is a practical, step-by-step approach to cleaning them up safely.',

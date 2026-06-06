@@ -41,20 +41,17 @@ const Contact: React.FC = () => {
     if (!validate()) return;
     setStatus('loading');
     try {
-      const endpoint = import.meta.env.VITE_CRM_URL;
-      if (endpoint) {
-        await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: form.email,
-            name: form.name,
-            company: form.company,
-            message: form.message,
-            source: 'nordicitops-contact',
-          }),
-        });
-      }
+      await fetch('/api/crm/6a23fba197b34a99561dd396/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: form.email,
+          name: form.name,
+          company: form.company,
+          message: form.message,
+          source: 'nordicitops-contact',
+        }),
+      });
     } catch (err) {
       console.error('Contact form submission failed:', err);
     }

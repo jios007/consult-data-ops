@@ -10,14 +10,14 @@ const Blog: React.FC = () => {
         <p className="mb-4 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-nio-accent">
           <span className="h-px w-6 bg-nio-accent" /> Insights
         </p>
-        <h1 className="text-2xl font-extrabold tracking-tight text-nio-heading sm:text-3xl">
+        <h1 className="text-xl font-extrabold tracking-tight text-nio-heading sm:text-2xl md:text-3xl">
           Maintenance data, in plain language
         </h1>
-        <p className="mt-4 text-lg font-light text-nio-muted">
+        <p className="mt-4 text-base font-light text-nio-muted">
           Practical articles on Maximo, CMMS data quality, Power BI reporting and operations analytics.
         </p>
 
-        <div className="mt-14 space-y-8">
+        <div className="mt-10 space-y-6">
           {posts.map((post) => (
             <Link
               key={post.slug}

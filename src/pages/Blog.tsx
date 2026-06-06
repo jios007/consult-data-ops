@@ -10,7 +10,7 @@ const Blog: React.FC = () => {
         <p className="mb-4 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-nio-accent">
           <span className="h-px w-6 bg-nio-accent" /> Insights
         </p>
-        <h1 className="font-display text-4xl font-extrabold tracking-tight text-nio-heading sm:text-5xl">
+        <h1 className="font-display text-3xl font-extrabold tracking-tight text-nio-heading sm:text-4xl">
           Maintenance data, in plain language
         </h1>
         <p className="mt-4 text-lg font-light text-nio-muted">

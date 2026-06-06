@@ -24,20 +24,20 @@ const Blog: React.FC = () => {
               to={`/blog/${post.slug}`}
               className="group block rounded-2xl border border-nio-line bg-nio-card p-8 transition-colors hover:border-nio-accent/60"
             >
-              <div className="flex items-center gap-4 text-xs text-nio-muted">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-nio-muted">
+                <span className="rounded-full border border-nio-line px-3 py-0.5 text-nio-accent">{post.tag}</span>
                 <span className="inline-flex items-center gap-1.5">
                   <Calendar className="h-3.5 w-3.5" /> {post.date}
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <Clock className="h-3.5 w-3.5" /> {post.readTime} min read
                 </span>
-                <span className="rounded-full border border-nio-line px-3 py-0.5">{post.tag}</span>
               </div>
-              <h2 className="mt-4 font-display text-2xl font-bold text-nio-heading group-hover:text-nio-accent transition-colors">
+              <h2 className="mt-3 font-display text-xl font-bold leading-snug text-nio-heading group-hover:text-nio-accent transition-colors sm:text-2xl">
                 {post.title}
               </h2>
-              <p className="mt-3 text-nio-muted leading-relaxed">{post.excerpt}</p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-nio-accent">
+              <p className="mt-3 text-sm leading-relaxed text-nio-muted sm:text-base">{post.excerpt}</p>
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-nio-accent">
                 Read article <ArrowRight className="h-4 w-4" />
               </span>
             </Link>

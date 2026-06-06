@@ -10,6 +10,92 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: 'how-to-automate-maintenance-workflows',
+    title: 'How to Automate Maintenance Workflows — Without Replacing Your Systems',
+    excerpt: 'Manual handoffs, email chains, and spreadsheet updates slow down every maintenance team. Here is how to automate the most common workflows using the tools you already have.',
+    date: 'June 7, 2026',
+    readTime: 8,
+    tag: 'Automation',
+    content: `
+<h2>Why maintenance workflows stay manual for so long</h2>
+<p>Most maintenance teams know their processes are inefficient. Work orders get created by email. Approvals wait in someone's inbox. Parts requests go through phone calls. Shift handovers happen on paper. Everyone knows it is slow — but changing it feels risky, expensive, or simply too low a priority compared to keeping assets running.</p>
+<p>The good news is that automating maintenance workflows does not require replacing your CMMS, hiring developers, or a six-month project. Most of the highest-value automations can be built with tools you already have — Maximo, Python, Power Automate, or Excel with VBA.</p>
+
+<h2>The four workflows worth automating first</h2>
+
+<h3>1. Work order creation from requests</h3>
+<p>In many organisations, a maintenance request arrives by email, gets read by a planner, and is manually typed into the CMMS as a work order. This takes 5–15 minutes per request and introduces transcription errors.</p>
+<p><strong>Automated version:</strong> A simple form (Microsoft Forms, SharePoint, or a web form) captures the request and creates the work order automatically in Maximo via API or integration. The planner reviews and approves — they do not type anything.</p>
+<p>Tools: Power Automate + Maximo REST API, or Python script triggered by form submission.</p>
+
+<h3>2. PM work order scheduling and assignment</h3>
+<p>Preventive maintenance work orders exist in the CMMS — but someone still has to manually check what is due, assign it to a technician, and send notification. In many teams this happens weekly in a planning meeting that takes hours.</p>
+<p><strong>Automated version:</strong> A scheduled script runs every morning, checks for PM work orders due in the next 7 days, assigns them based on technician availability and skill, and sends each technician a notification with their work list for the day.</p>
+<p>Tools: Python + Maximo API + email or Teams notification.</p>
+
+<h3>3. Approval routing</h3>
+<p>Work orders above a cost threshold, or for critical assets, often require manager approval before work begins. Without automation, these sit in email threads and get lost.</p>
+<p><strong>Automated version:</strong> When a work order is created or updated to a certain status, an approval request is automatically sent to the right person based on cost, asset criticality, or site. The approver clicks Approve or Reject — the CMMS status updates automatically.</p>
+<p>Tools: Power Automate with Maximo connector, or Maximo's built-in workflow engine configured properly.</p>
+
+<h3>4. Shift handover reports</h3>
+<p>End-of-shift handover is critical in continuous operations — but it is almost always done manually, inconsistently, and sometimes not at all when the shift is busy.</p>
+<p><strong>Automated version:</strong> 30 minutes before shift end, a script pulls all open work orders, completed tasks, and active alarms from the CMMS and generates a formatted handover report. It is emailed to the incoming shift supervisor automatically.</p>
+<p>Tools: Python + pandas + scheduled task (Windows Task Scheduler or cron).</p>
+
+<h2>How to build a simple workflow automation with Python</h2>
+<p>Here is a basic example — a script that checks for overdue work orders and sends an email alert:</p>
+<pre><code>import pandas as pd
+import smtplib
+from email.mime.text import MIMEText
+from datetime import datetime
+
+# Load work order export
+df = pd.read_excel(r"C:\\Data\\workorders.xlsx")
+df["REPORTDATE"] = pd.to_datetime(df["REPORTDATE"])
+
+# Find overdue open work orders
+overdue = df[
+    (df["STATUS"].isin(["WAPPR", "INPRG", "WMATL"])) &
+    (df["REPORTDATE"] < datetime.now() - pd.Timedelta(days=30))
+]
+
+if len(overdue) > 0:
+    body = f"Overdue work orders as of {datetime.now().strftime('%Y-%m-%d')}:\\n\\n"
+    for _, row in overdue.iterrows():
+        days = (datetime.now() - row["REPORTDATE"]).days
+        body += f"- WO {row['WONUM']}: {row['DESCRIPTION']} ({days} days open)\\n"
+
+    msg = MIMEText(body)
+    msg["Subject"] = f"⚠ {len(overdue)} overdue work orders"
+    msg["From"] = "maintenance@yourcompany.com"
+    msg["To"] = "maintenance.manager@yourcompany.com"
+
+    with smtplib.SMTP("smtp.yourcompany.com", 587) as server:
+        server.send_message(msg)
+    print(f"Alert sent for {len(overdue)} overdue work orders")
+else:
+    print("No overdue work orders today")</code></pre>
+<p>Schedule this with Windows Task Scheduler to run every morning at 7am. Your maintenance manager gets an automatic alert — no manual checking required.</p>
+
+<h2>Using Power Automate for no-code workflows</h2>
+<p>If Python feels too technical, Microsoft Power Automate lets you build workflows visually with no code. Common maintenance automations you can build in Power Automate:</p>
+<ul>
+  <li>When a form is submitted → create a work order in Maximo → notify the planner in Teams</li>
+  <li>When a work order status changes to COMP → send a customer satisfaction survey</li>
+  <li>When a spare part stock level drops below reorder point → send a purchase request email</li>
+  <li>Daily: pull open work orders from Excel → post a summary to a Teams channel</li>
+</ul>
+<p>Power Automate connects to hundreds of systems including SharePoint, Teams, Outlook, Excel, and — via HTTP connector — any system with a REST API including Maximo.</p>
+
+<h2>Where to start</h2>
+<p>Pick the one workflow that wastes the most time in your team right now. Map it on paper — every step, every person involved, every handoff. Then ask: which steps require human judgement, and which are just copying information from one place to another?</p>
+<p>The steps that are just copying information are your automation targets. Start with one, prove the value, then expand.</p>
+<hr/>
+<p>Need help identifying and automating the right workflows for your maintenance operation? <a href="/#contact">Get in touch</a> — this is one of the most common engagements I do for organisations across the Nordics.</p>
+    `,
+  },
+  {
     slug: 'what-is-cmms-and-how-it-helps',
     title: 'What is a CMMS and How Does It Help Your Organisation?',
     excerpt: 'A CMMS — Computerised Maintenance Management System — is the backbone of any professional maintenance operation. Here is what it does, why it matters, and how to get the most out of it.',

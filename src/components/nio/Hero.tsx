@@ -49,9 +49,9 @@ const Hero: React.FC = () => {
           className="mb-10 max-w-2xl text-lg font-light leading-relaxed text-nio-muted opacity-0 animate-fade-up"
           style={{ animationDelay: '0.3s' }}
         >
-          I'm an independent consultant helping asset-heavy organisations clean up their CMMS,
-          automate the workflows that slow teams down, and build reporting that leadership
-          actually reads. Maximo, Power BI, Python — Stockholm based, working across the Nordics.
+          I'm an independent IBM Maximo consultant based in Stockholm, Sweden — helping asset-heavy
+          organisations across the Nordics clean up CMMS data, automate workflows, and build
+          Power BI maintenance reporting that leadership actually uses.
         </p>
 
         <div

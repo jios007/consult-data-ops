@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -19,10 +20,11 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-display text-sm font-bold text-nio-heading">Sections</h4>
             <ul className="mt-4 space-y-2 text-sm">
-              <li><a href="#services" className="text-nio-muted hover:text-nio-accent">Services</a></li>
-              <li><a href="#approach" className="text-nio-muted hover:text-nio-accent">Approach</a></li>
-              <li><a href="#about" className="text-nio-muted hover:text-nio-accent">About</a></li>
-              <li><a href="#contact" className="text-nio-muted hover:text-nio-accent">Contact</a></li>
+              <li><a href="/#services" className="text-nio-muted hover:text-nio-accent">Services</a></li>
+              <li><a href="/#approach" className="text-nio-muted hover:text-nio-accent">Approach</a></li>
+              <li><a href="/#about" className="text-nio-muted hover:text-nio-accent">About</a></li>
+              <li><a href="/#contact" className="text-nio-muted hover:text-nio-accent">Contact</a></li>
+              <li><Link to="/blog" className="text-nio-muted hover:text-nio-accent">Blog</Link></li>
             </ul>
           </div>
           <div>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const links = [
-  { label: 'Services', href: '#services' },
-  { label: 'Approach', href: '#approach' },
-  { label: 'About', href: '#about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Approach', href: '/#approach' },
+  { label: 'About', href: '/#about' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 const Navbar: React.FC = () => {

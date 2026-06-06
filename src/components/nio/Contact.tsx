@@ -129,7 +129,7 @@ const Contact: React.FC = () => {
                     type="text"
                     value={form.company}
                     onChange={update('company')}
-                    placeholder="Acme Rail AB"
+                    placeholder="Company AB"
                     className={`${inputBase} ${errors.company ? 'border-red-400' : 'border-nio-line'}`}
                   />
                   {errors.company && <p className="mt-1 text-xs text-red-400">{errors.company}</p>}

@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
       </button>
 
       {open && (
-        <div className="absolute inset-x-0 top-full flex flex-col gap-1 border-b border-nio-line bg-nio-bg/98 px-6 py-4 backdrop-blur-md md:hidden">
+        <div className="absolute inset-x-0 top-full flex flex-col gap-1 border-b border-nio-line bg-nio-bg px-6 py-4 md:hidden">
           {links.map((l) => (
             <a
               key={l.href}

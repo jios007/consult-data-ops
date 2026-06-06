@@ -30,21 +30,21 @@ const BlogPost: React.FC = () => {
           <ArrowLeft className="h-4 w-4" /> Back to all articles
         </Link>
 
-        <div className="flex items-center gap-4 text-xs text-nio-muted">
+        <div className="flex flex-wrap items-center gap-3 text-xs text-nio-muted">
+          <span className="rounded-full border border-nio-line px-3 py-0.5 text-nio-accent">{post.tag}</span>
           <span className="inline-flex items-center gap-1.5">
             <Calendar className="h-3.5 w-3.5" /> {post.date}
           </span>
           <span className="inline-flex items-center gap-1.5">
             <Clock className="h-3.5 w-3.5" /> {post.readTime} min read
           </span>
-          <span className="rounded-full border border-nio-line px-3 py-0.5">{post.tag}</span>
         </div>
 
-        <h1 className="mt-6 font-display text-4xl font-extrabold leading-tight tracking-tight text-nio-heading sm:text-5xl">
+        <h1 className="mt-6 font-display text-2xl font-extrabold leading-tight tracking-tight text-nio-heading sm:text-3xl md:text-4xl">
           {post.title}
         </h1>
 
-        <p className="mt-6 text-xl font-light leading-relaxed text-nio-muted">{post.excerpt}</p>
+        <p className="mt-6 text-base font-light leading-relaxed text-nio-muted sm:text-lg">{post.excerpt}</p>
 
         <div
           className="mt-12 prose prose-invert prose-lg max-w-none

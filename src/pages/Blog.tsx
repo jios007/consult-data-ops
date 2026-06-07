@@ -2,10 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { posts } from '@/data/posts';
+import Navbar from '@/components/nio/Navbar';
+import Footer from '@/components/nio/Footer';
 
 const Blog: React.FC = () => {
   return (
-    <div className="min-h-screen bg-nio-bg px-6 py-32 md:px-12">
+    <div className="min-h-screen bg-nio-bg font-sans antialiased">
+      <Navbar />
+      <div className="px-6 py-32 md:px-12">
       <div className="mx-auto max-w-4xl">
         <p className="mb-4 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-nio-accent">
           <span className="h-px w-6 bg-nio-accent" /> Insights
@@ -54,6 +58,7 @@ const Blog: React.FC = () => {
           </Link>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

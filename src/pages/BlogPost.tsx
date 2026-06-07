@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { posts } from '@/data/posts';
+import Navbar from '@/components/nio/Navbar';
+import Footer from '@/components/nio/Footer';
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -21,7 +23,9 @@ const BlogPost: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-nio-bg px-6 py-32 md:px-12">
+    <div className="min-h-screen bg-nio-bg font-sans antialiased">
+      <Navbar />
+      <div className="px-6 py-32 md:px-12">
       <div className="mx-auto max-w-3xl">
         <Link
           to="/blog"
@@ -69,6 +73,7 @@ const BlogPost: React.FC = () => {
           </Link>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

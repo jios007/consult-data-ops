@@ -10,6 +10,119 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: 'kpi-dashboard-for-maintenance-teams',
+    title: 'KPI Dashboard for Maintenance Teams — The Metrics That Actually Matter',
+    excerpt: 'Most maintenance dashboards show too much data and drive too few decisions. Here is how to build a KPI dashboard that your team will open every day — and that leadership will actually understand.',
+    date: 'June 7, 2026',
+    readTime: 9,
+    tag: 'Power BI',
+    content: `
+<h2>Why most maintenance dashboards fail</h2>
+<p>A dashboard that shows 40 charts is not a dashboard — it is a data dump. The best maintenance KPI dashboards answer three questions at a glance:</p>
+<ul>
+  <li>Are we keeping up with planned maintenance?</li>
+  <li>How big is our backlog and is it growing?</li>
+  <li>Are our assets performing reliably?</li>
+</ul>
+<p>Everything else is detail. Detail belongs in drill-down reports, not on the main dashboard.</p>
+
+<h2>The 8 KPIs every maintenance team should track</h2>
+
+<h3>1. PM Compliance Rate</h3>
+<p><strong>What it is:</strong> The percentage of scheduled preventive maintenance work orders completed on time.</p>
+<p><strong>Formula:</strong> (PM WOs completed on time ÷ Total PM WOs scheduled) × 100</p>
+<p><strong>Target:</strong> 85–95% depending on industry. Below 80% means your PM programme is not being executed.</p>
+<p><strong>Why it matters:</strong> Low PM compliance predicts future failures. If you are not doing planned maintenance, you will do more unplanned maintenance — at higher cost and lower asset availability.</p>
+
+<h3>2. Corrective vs. Preventive Maintenance Ratio</h3>
+<p><strong>What it is:</strong> The split between reactive (corrective) and planned (preventive) work orders.</p>
+<p><strong>Target:</strong> 70–80% planned, 20–30% reactive. Reactive-dominated operations spend more and achieve less.</p>
+<p><strong>Why it matters:</strong> Tracks whether your maintenance strategy is moving from reactive to planned over time.</p>
+
+<h3>3. Mean Time Between Failures (MTBF)</h3>
+<p><strong>What it is:</strong> The average time between failures for a given asset or asset class.</p>
+<p><strong>Formula:</strong> Total uptime ÷ Number of failures</p>
+<p><strong>Why it matters:</strong> A rising MTBF means your assets are becoming more reliable. A falling MTBF is an early warning of a systemic problem — wrong PM intervals, poor spare parts quality, or operator misuse.</p>
+
+<h3>4. Mean Time To Repair (MTTR)</h3>
+<p><strong>What it is:</strong> The average time from failure detection to asset back in service.</p>
+<p><strong>Why it matters:</strong> High MTTR points to problems in your repair process — slow diagnosis, parts unavailability, insufficient technician skills, or poor work order planning.</p>
+
+<h3>5. Open Backlog</h3>
+<p><strong>What it is:</strong> The total number (or hours) of approved, open work orders not yet started or completed.</p>
+<p><strong>Why it matters:</strong> Backlog is your maintenance debt. A growing backlog means you are falling behind. Track it weekly — not just the total, but the age distribution. Old backlog is the most dangerous.</p>
+
+<h3>6. Schedule Compliance</h3>
+<p><strong>What it is:</strong> The percentage of work orders completed in the week they were scheduled.</p>
+<p><strong>Target:</strong> 80%+ for a well-run planning function.</p>
+<p><strong>Why it matters:</strong> Distinguishes between planning problems (wrong work scheduled) and execution problems (right work scheduled but not done).</p>
+
+<h3>7. Maintenance Cost per Asset</h3>
+<p><strong>What it is:</strong> Total maintenance spend (labour + parts + contractors) divided by number of assets.</p>
+<p><strong>Why it matters:</strong> Identifies high-cost assets that may be candidates for replacement rather than continued repair. Tracks whether your overall maintenance spend is moving in the right direction.</p>
+
+<h3>8. Wrench Time</h3>
+<p><strong>What it is:</strong> The percentage of a technician's time spent doing actual hands-on maintenance work.</p>
+<p><strong>Industry average:</strong> 25–35%. World class: 50–55%.</p>
+<p><strong>Why it matters:</strong> Most of a technician's day is spent travelling, waiting for parts, searching for information, and attending meetings. Improving wrench time without adding headcount is one of the highest-leverage improvements available.</p>
+
+<h2>How to build the dashboard in Power BI</h2>
+<p>Structure your maintenance KPI dashboard in three layers:</p>
+
+<h3>Layer 1 — Executive view (one page)</h3>
+<p>Four KPI cards at the top: PM Compliance %, Open Backlog count, MTBF trend (up/down arrow), Maintenance Cost this month vs. budget. One trend chart below showing backlog over the last 12 months. Colour coded: green = on target, amber = watch, red = action required.</p>
+
+<h3>Layer 2 — Operations view (one page per site or asset class)</h3>
+<p>PM compliance by work type, backlog age breakdown (0–7 days, 8–30 days, 30+ days), schedule compliance trend, top 10 assets by corrective WO count.</p>
+
+<h3>Layer 3 — Drill-down tables</h3>
+<p>Filterable lists of overdue PMs, aging backlog, high-cost work orders. Used by planners for daily decisions.</p>
+
+<h2>DAX measures for the key KPIs</h2>
+<pre><code>-- PM Compliance %
+PM Compliance =
+DIVIDE(
+    CALCULATE(COUNTROWS(WORKORDER),
+        WORKORDER[WORKTYPE] = "PM",
+        WORKORDER[STATUS] = "COMP",
+        WORKORDER[ACTFINISH] <= WORKORDER[SCHEDFINISH]
+    ),
+    CALCULATE(COUNTROWS(WORKORDER),
+        WORKORDER[WORKTYPE] = "PM",
+        WORKORDER[SCHEDFINISH] <= TODAY()
+    )
+)
+
+-- Open Backlog
+Open Backlog =
+CALCULATE(
+    COUNTROWS(WORKORDER),
+    WORKORDER[STATUS] IN {"WAPPR","APPR","INPRG","WMATL"}
+)
+
+-- Backlog Age (avg days)
+Avg Backlog Age =
+AVERAGEX(
+    FILTER(WORKORDER,
+        WORKORDER[STATUS] IN {"WAPPR","APPR","INPRG","WMATL"}
+    ),
+    DATEDIFF(WORKORDER[REPORTDATE], TODAY(), DAY)
+)
+
+-- Corrective vs Preventive ratio
+CM Ratio =
+DIVIDE(
+    CALCULATE(COUNTROWS(WORKORDER), WORKORDER[WORKTYPE] = "CM"),
+    COUNTROWS(WORKORDER)
+)</code></pre>
+
+<h2>One rule for better dashboards</h2>
+<p>Every metric on your dashboard should have an owner — a specific person who is responsible for acting when it turns red. If a metric has no owner, remove it. Data without accountability is decoration.</p>
+<hr/>
+<p>Need a maintenance KPI dashboard built for your organisation? <a href="/#contact">Get in touch</a> — I build Power BI maintenance dashboards for asset-heavy organisations across the Nordics.</p>
+    `,
+  },
+  {
     slug: 'data-migration-best-practices-cmms',
     title: 'Data Migration Best Practices for CMMS — What Nobody Tells You Before You Start',
     excerpt: 'Moving data from one system to another sounds straightforward. In practice, it is one of the riskiest phases of any CMMS implementation. Here is what best practice looks like — and what to avoid.',

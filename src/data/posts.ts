@@ -10,6 +10,109 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: 'data-migration-best-practices-cmms',
+    title: 'Data Migration Best Practices for CMMS — What Nobody Tells You Before You Start',
+    excerpt: 'Moving data from one system to another sounds straightforward. In practice, it is one of the riskiest phases of any CMMS implementation. Here is what best practice looks like — and what to avoid.',
+    date: 'June 7, 2026',
+    readTime: 10,
+    tag: 'Migration',
+    content: `
+<h2>What is data migration and why does it matter?</h2>
+<p>Data migration is the process of moving data from one system to another — typically from a legacy CMMS, spreadsheets, or paper records into a new platform. It happens during system upgrades, platform replacements, mergers, or site rollouts.</p>
+<p>It matters because the data you bring into your new system determines everything that follows. Migrate bad data and you have a shiny new system full of the same problems as the old one. Migrate it well and your new system starts with a clean, reliable foundation.</p>
+<p>Most CMMS migration failures are not technical failures. They are data quality failures — discovered too late.</p>
+
+<h2>The five phases of a good migration</h2>
+
+<h3>Phase 1: Discovery and scoping</h3>
+<p>Before touching any data, map exactly what you have and what you need:</p>
+<ul>
+  <li>What data objects are being migrated? (Assets, locations, work orders, PMs, spare parts, labour records)</li>
+  <li>Where does each data object live today? (CMMS, spreadsheets, paper, multiple sources)</li>
+  <li>What is the volume? (Number of assets, work orders, etc.)</li>
+  <li>What is the cutover date and what is the tolerance for downtime?</li>
+  <li>What data is mandatory in the new system that may not exist in the old one?</li>
+</ul>
+<p>This phase produces a <strong>data migration scope document</strong> — a written agreement on what is in and out of scope before any work begins. Without this, scope creep will derail your timeline.</p>
+
+<h3>Phase 2: Data extraction and profiling</h3>
+<p>Extract the source data and analyse it before attempting to transform anything. You need to understand what you actually have:</p>
+<ul>
+  <li>How many records are complete vs. missing critical fields?</li>
+  <li>What are the data quality issues? (Duplicates, inconsistent formats, invalid codes)</li>
+  <li>What percentage of records are genuinely useful vs. obsolete?</li>
+</ul>
+<p>A simple Python profiling script can answer most of these questions in minutes:</p>
+<pre><code>import pandas as pd
+
+df = pd.read_excel("source_assets.xlsx")
+
+print(f"Total records: {len(df)}")
+print(f"\\nCompleteness by column:")
+print((df.notna().sum() / len(df) * 100).round(1))
+
+print(f"\\nDuplicates on asset number: {df['ASSETNUM'].duplicated().sum()}")
+print(f"Records with no description: {df['DESCRIPTION'].isna().sum()}")</code></pre>
+<p>This gives you a data quality baseline — and often reveals problems that change the entire migration plan.</p>
+
+<h3>Phase 3: Cleanse before you migrate</h3>
+<p>This is the phase most projects skip — and why most migrations create problems.</p>
+<p>Cleansing means fixing data quality issues in the source before migration, not after. Issues to resolve:</p>
+<ul>
+  <li><strong>Duplicates</strong> — identify the master record, merge history, delete or archive the rest</li>
+  <li><strong>Obsolete records</strong> — retired assets, cancelled work orders, inactive locations should not migrate</li>
+  <li><strong>Inconsistent codes</strong> — standardise work types, failure codes, and status values to the target system's taxonomy</li>
+  <li><strong>Missing mandatory fields</strong> — fill them in or document why they cannot be filled</li>
+  <li><strong>Invalid references</strong> — assets linked to locations that do not exist, work orders linked to assets that have been deleted</li>
+</ul>
+<p>A rule of thumb: plan for cleansing to take 40–60% of the total migration effort. If your plan allocates less than that, revise it.</p>
+
+<h3>Phase 4: Transform, load, and validate</h3>
+<p>Transformation means converting the source data structure into the target system's structure — mapping old field names to new ones, converting codes, reformatting dates.</p>
+<p>Always use a staging environment for the first load — never migrate directly to production. After loading:</p>
+<ul>
+  <li>Run record counts — do source and target match?</li>
+  <li>Spot-check a sample of records manually</li>
+  <li>Test key system functions with the migrated data (create a work order, run a PM, generate a report)</li>
+  <li>Have subject matter experts from the maintenance team sign off — they will spot problems that technical teams miss</li>
+</ul>
+<p>Plan for at least two or three test migration cycles before the final cutover. The first load always reveals issues you did not anticipate.</p>
+
+<h3>Phase 5: Cutover and post-migration support</h3>
+<p>Cutover is when the new system goes live with the migrated data. Key decisions:</p>
+<ul>
+  <li><strong>Big bang vs. phased</strong> — cut over everything at once, or migrate one site or asset class at a time? Phased is lower risk but takes longer.</li>
+  <li><strong>Freeze period</strong> — stop changes to the source system before cutover so the final migration is not chasing a moving target</li>
+  <li><strong>Rollback plan</strong> — what happens if something goes wrong on day one? Have a tested fallback.</li>
+  <li><strong>Parallel running</strong> — for critical operations, run old and new systems in parallel for 2–4 weeks</li>
+</ul>
+<p>Post-migration, plan for a hypercare period of 4–8 weeks where data issues are prioritised and resolved quickly. Users will find problems that testing did not — that is normal and expected.</p>
+
+<h2>The most common migration mistakes</h2>
+<ul>
+  <li><strong>Migrating everything</strong> — including 15 years of closed work orders nobody will ever look at. Be selective.</li>
+  <li><strong>Skipping cleansing</strong> — "we will fix it in the new system" almost never happens</li>
+  <li><strong>No validation sign-off</strong> — technical teams validate record counts; maintenance teams need to validate that the data makes sense operationally</li>
+  <li><strong>Underestimating effort</strong> — migrations consistently take 2–3x longer than initial estimates</li>
+  <li><strong>No data freeze</strong> — migrating data while the source system is still being updated creates inconsistencies</li>
+  <li><strong>One migration cycle</strong> — expecting the first load to be the final one</li>
+</ul>
+
+<h2>What good looks like</h2>
+<p>A successful CMMS migration leaves you with:</p>
+<ul>
+  <li>An asset register that reflects what actually exists on site</li>
+  <li>Active PM plans loaded and generating work orders correctly</li>
+  <li>Enough work order history to run meaningful reliability reports from day one</li>
+  <li>Spare parts inventory that matches what is in the storeroom</li>
+  <li>A team that trusts the data in the new system</li>
+</ul>
+<p>That last point — trust — is the real measure of a successful migration. If the maintenance team trusts the data, they will use the system. If they do not, they will go back to spreadsheets within six months.</p>
+<hr/>
+<p>Planning a CMMS migration or in the middle of one that is not going well? <a href="/#contact">Get in touch</a> — data migration support is one of the core services I provide to organisations across the Nordics.</p>
+    `,
+  },
+  {
     slug: 'how-to-automate-maintenance-workflows',
     title: 'How to Automate Maintenance Workflows — Without Replacing Your Systems',
     excerpt: 'Manual handoffs, email chains, and spreadsheet updates slow down every maintenance team. Here is how to automate the most common workflows using the tools you already have.',

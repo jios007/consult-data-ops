@@ -10,6 +10,70 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: 'custom-power-bi-views-vs-native-better-fit-for-your-organisation',
+    title: 'Custom Power BI Views vs. Native — Why a Tailored Dashboard Fits Your Organisation Better',
+    excerpt: 'Native Power BI templates look clean out of the box. But they are built for everyone — which means they are optimised for no one. Here is why a custom view, done right, delivers more value without making your reports look complicated.',
+    date: 'June 8, 2026',
+    readTime: 7,
+    tag: 'Power BI',
+    content: `
+<h2>The problem with native Power BI templates</h2>
+<p>Power BI comes with built-in visuals, sample reports, and marketplace templates. For a quick demo, they look impressive. For day-to-day operational use, they often fall short — not because they are badly designed, but because they are designed for a generic audience.</p>
+<p>A template for "maintenance reporting" has to work for a hospital, a railway operator, a water utility, and a food manufacturer. It ends up showing everything, configured for nothing in particular. Your team opens it, finds that 60% of the charts do not apply to their work, and stops using it within a month.</p>
+<p>Custom views solve this — but only when built with the right balance. The goal is not to make something visually extreme or technically complex. It is to make something that fits exactly how your organisation thinks and works.</p>
+
+<h2>What "custom" actually means</h2>
+<p>A custom Power BI view does not mean starting from scratch with unusual visuals or heavy design. It means three specific things:</p>
+<ul>
+  <li><strong>Your terminology</strong> — labels, field names, and categories that match how your team talks about their work</li>
+  <li><strong>Your logic</strong> — KPI definitions calculated the way your organisation measures them, not a generic formula</li>
+  <li><strong>Your workflow</strong> — information arranged in the order a user needs it, not the order a template designer assumed</li>
+</ul>
+<p>A maintenance planner in a Nordic rail operation does not need the same dashboard as a facilities manager in a hospital. The underlying data structure may be similar, but the questions they ask every morning are different.</p>
+
+<h2>Five ways custom views outperform native templates</h2>
+
+<h3>1. They use your actual KPI definitions</h3>
+<p>Every organisation defines PM compliance slightly differently. Some count a PM as compliant if it is completed within the scheduled week. Others use a ±3 day window. Some exclude emergency overrides; others include them.</p>
+<p>A native template picks one definition. If it is not yours, your compliance figure is wrong — and you may not even know it.</p>
+<p>A custom view calculates PM compliance exactly the way your organisation has defined it, documented in the DAX measure so there is no ambiguity.</p>
+
+<h3>2. They filter out data your team does not own</h3>
+<p>Most CMMS databases contain data from multiple sites, departments, or asset classes. A native template shows all of it — which means every user has to filter down to their area every time they open the report.</p>
+<p>A custom view can be pre-filtered by site, department, or asset class with a single slicer that defaults to the user's area. Less clicking, less confusion, more time on the actual data.</p>
+
+<h3>3. They speak your language</h3>
+<p>If your organisation calls corrective maintenance "breakdown work" — then the chart should say "breakdown work", not "CM" or "corrective". If your asset hierarchy uses functional locations instead of asset numbers, the drill-down should follow that hierarchy.</p>
+<p>Small terminology mismatches erode trust in a report faster than almost anything else. If users see labels that do not match how they think about their work, they assume the numbers are wrong too.</p>
+
+<h3>4. They surface the right exceptions</h3>
+<p>Native templates show averages and totals. What maintenance teams actually need is exceptions — the assets that are overdue, the work orders that have been open too long, the sites where PM compliance dropped this week.</p>
+<p>A well-designed custom view puts exceptions at the top, highlighted in the appropriate colour, with one click to the list of affected records. The user sees what needs attention before they see anything else.</p>
+
+<h3>5. They are simpler, not more complex</h3>
+<p>This is the most important point. A custom view should have <em>fewer</em> visuals than a native template, not more. Its value comes from removing everything that does not apply to your organisation — leaving only the charts your team actually uses.</p>
+<p>A good custom dashboard for a maintenance manager has 6–8 visuals. A native template trying to cover all use cases may have 20. Fewer, more relevant visuals drive more decisions.</p>
+
+<h2>What to avoid when building custom views</h2>
+<ul>
+  <li><strong>Over-designing visuals</strong> — custom colours, unusual chart types, and heavy branding add complexity without adding insight. Keep visuals standard; customise the data and logic instead.</li>
+  <li><strong>Building for one person</strong> — the dashboard should serve a role (maintenance planner, site manager, operations director), not an individual. Individuals change; roles do not.</li>
+  <li><strong>Hiding the source logic</strong> — every custom calculation should be documented. If the person who built it leaves, the business should be able to maintain it.</li>
+  <li><strong>Rebuilding every quarter</strong> — a stable dashboard that users trust is more valuable than a perfect dashboard that keeps changing. Get the logic right first; iterate the design slowly.</li>
+</ul>
+
+<h2>A practical starting point</h2>
+<p>Before building anything, sit with the people who will use the report and ask two questions:</p>
+<ol>
+  <li>What is the one number you look at first every morning?</li>
+  <li>When that number looks wrong, what do you need to see next?</li>
+</ol>
+<p>The answer to those two questions is the core of your custom view. Everything else is supporting detail. Build the core first, validate it with the team, then add detail only when they ask for it.</p>
+<hr/>
+<p>Need a Power BI dashboard built around how your organisation actually works — not how a template assumes it works? <a href="/#contact">Get in touch</a>. I build custom maintenance reporting for asset-heavy organisations across the Nordics.</p>
+    `,
+  },
+  {
     slug: 'kpi-dashboard-for-maintenance-teams',
     title: 'KPI Dashboard for Maintenance Teams — The Metrics That Actually Matter',
     excerpt: 'Most maintenance dashboards show too much data and drive too few decisions. Here is how to build a KPI dashboard that your team will open every day — and that leadership will actually understand.',

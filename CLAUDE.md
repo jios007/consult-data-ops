@@ -88,9 +88,10 @@ vercel.json           — single rewrite rule for SPA routing
 
 ---
 
-## Current Blog Articles (10 total)
+## Current Blog Articles (11 total)
 | Slug | Tag |
 |------|-----|
+| `custom-power-bi-views-vs-native-better-fit-for-your-organisation` | Power BI |
 | `kpi-dashboard-for-maintenance-teams` | Power BI |
 | `data-migration-best-practices-cmms` | Migration |
 | `how-to-automate-maintenance-workflows` | Automation |
@@ -131,7 +132,7 @@ vercel.json           — single rewrite rule for SPA routing
 
 ## SEO
 - Page title: *"Maximo Consultant Sweden | CMMS & Power BI Reporting — Nordic IT Ops"*
-- Target keywords: Maximo consultant Sweden, CMMS consultant Stockholm, IBM Maximo consultant, Power BI maintenance reporting
+- Target keywords: Maximo consultant Sweden, CMMS consultant Stockholm, IBM Maximo consultant, Power BI maintenance reporting, Power BI custom views, Power BI expert Sweden
 - Structured data (JSON-LD) in `index.html`
 - Google Search Console: verified, sitemap submitted
 - Google Business Profile: set up under "Nordic IT Ops", Stockholm
